@@ -9,11 +9,17 @@ public class Card : MonoBehaviour
 {
     public int Id { get; private set; } = -1;
     public bool IsUpsideDown { get; private set; }
+    public bool IsFlipping { get; private set; }
 
-    public event Action<Card> OnCardFlipped;
+    public event Action<Card> OnCardClicked = (card) => { };
+    public event Action<Card> OnCardFlipped = (card) => { };
 
+    [Header("References")]
     [SerializeField] private GameObject _cardBack;
     [SerializeField] private TextMeshProUGUI _idField;
+    [SerializeField] private GameObject _discoveredOverlay;
+
+    [Header("Settings")]
     [SerializeField, Tooltip("Measured in angles per second.")] 
     private float _flipSpeed = 30f;
 
@@ -24,9 +30,12 @@ public class Card : MonoBehaviour
         _button = GetComponent<Button>();
         _button.onClick.AddListener(() => 
         {
-            if (IsUpsideDown) Flip();
+            //if (IsUpsideDown) Flip();
+            OnCardClicked(this);
         });
+
         IsUpsideDown = true;
+        IsFlipping = false;
     }
 
     public void Initialize(int id)
@@ -36,8 +45,7 @@ public class Card : MonoBehaviour
     }
 
     public void Flip()
-    {
-        OnCardFlipped(this);
+    {        
         StartCoroutine(FlipAnimation());
         Debug.Log($"Card {Id} flipped");
     }
@@ -77,7 +85,13 @@ public class Card : MonoBehaviour
         //while (Mathf.Abs(newY - targetY) > 0.1f);
         while (newY != targetY);
 
+        OnCardFlipped(this);
         IsUpsideDown = !IsUpsideDown;
+
+        if (IsUpsideDown)
+        {
+            transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        }
 
         yield return null;
     }
@@ -85,5 +99,6 @@ public class Card : MonoBehaviour
     public void SetDiscovered()
     {
         _button.interactable = false;
+        _discoveredOverlay.SetActive(true);
     }
 }
