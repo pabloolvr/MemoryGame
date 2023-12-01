@@ -774,7 +774,7 @@ MonoBehaviour:
   _cardsContainer: {fileID: 317812980}
   _timer: {fileID: 1280023894}
   cardPrefab: {fileID: 4759424933785432256, guid: 8aeba6b8aa525624e922e49ed58891fe, type: 3}
-  _pairsPerDifficulty: 02000000140000001e0000002800000032000000
+  _pairsPerDifficulty: 0a000000140000001e0000002800000032000000
 --- !u!1 &317812978
 GameObject:
   m_ObjectHideFlags: 0
