@@ -17,6 +17,7 @@ public class Card : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject _cardBack;
     [SerializeField] private TextMeshProUGUI _idField;
+    [SerializeField] private RawImage _image;
     [SerializeField] private GameObject _discoveredOverlay;
 
     [Header("Settings")]
@@ -38,10 +39,20 @@ public class Card : MonoBehaviour
         IsFlipping = false;
     }
 
-    public void Initialize(int id)
+    public void Initialize(int id, Texture2D texture)
     {
         Id = id;
-        _idField.text = Id.ToString();
+
+        if (texture != null)
+        {
+            _image.gameObject.SetActive(true);
+            _image.texture = texture;
+        }
+        else
+        {
+            _idField.gameObject.SetActive(true);
+            _idField.text = Id.ToString();
+        }
     }
 
     public void Flip()

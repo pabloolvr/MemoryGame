@@ -58,11 +58,23 @@ public class GameManager : MonoBehaviour
     private void SpawnCards()
     {
         List<Card> cards = new List<Card>();
+        List<Texture2D> images = ImageManager.Instance.ImageList;
 
         for (int i = 0; i < _pairsPerDifficulty[(int)CurDifficulty]; i++)
         {
-            cards.Add(SpawnCard(i));
-            cards.Add(SpawnCard(i));
+            Texture2D texture;
+
+            if (i < images.Count)
+            {
+                texture = images[i];
+            }
+            else
+            {
+                texture = null;
+            }
+
+            cards.Add(SpawnCard(i, texture));
+            cards.Add(SpawnCard(i, texture));
         }
 
         int cardsCount = cards.Count;
@@ -75,10 +87,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private Card SpawnCard(int index)
+    private Card SpawnCard(int index, Texture2D texture)
     {
         Card card = Instantiate(cardPrefab, _cardsContainer.content);
-        card.Initialize(index);
+        card.Initialize(index, texture);
         card.OnCardClicked += OnCardClicked;
         return card;
     }
