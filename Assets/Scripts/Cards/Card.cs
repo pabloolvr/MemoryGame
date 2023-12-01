@@ -62,7 +62,9 @@ public class Card : MonoBehaviour
         {
             targetY = 180;
         }
-       
+
+        _button.interactable = false;
+
         do
         {
             curY = transform.rotation.eulerAngles.y;
@@ -91,14 +93,13 @@ public class Card : MonoBehaviour
         if (IsUpsideDown)
         {
             transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            _button.interactable = true;
         }
-
-        yield return null;
     }
 
     public void SetDiscovered()
     {
-        _button.interactable = false;
+        //_button.interactable = false;
         _discoveredOverlay.SetActive(true);
     }
 }
