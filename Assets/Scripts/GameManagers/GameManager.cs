@@ -16,6 +16,18 @@ public enum GameDifficulty
     VeryHard
 }
 
+[Serializable]
+public struct DifficultySettings
+{
+    public GameDifficulty Difficulty => _difficulty;
+    public int PairsQty => _pairsQty;
+    public int GridSize => _gridSize;
+
+    public GameDifficulty _difficulty;
+    public int _pairsQty;
+    public int _gridSize;
+}
+
 public class GameManager : MonoBehaviour
 {
     //public int DiscoveredPairs { get; private set; }
@@ -33,26 +45,63 @@ public class GameManager : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private int[] _pairsPerDifficulty;
+    [SerializeField] private DifficultySettings[] _difficulties;
 
     //private List<Card> _cards;
     //private int _gameDifficulty;
+    private GridLayoutGroup _cardGridLayoutGroup;
+    private float _cardGridWidth;
+    private float _cardGridHeight;
     private int _discoveredPairs;
     private Card _firstSelectCard;
     private Card _secondSelectCard;
 
-    void Start()
+    private void Awake()
     {
-        //_gameDifficulty = PlayerPrefs.GetInt("GameDifficulty", 0);
         _discoveredPairs = 0;
-        _timer.StartTimer();
         _firstSelectCard = null;
         _secondSelectCard = null;
+        
+        _cardGridLayoutGroup = _cardsContainer.content.GetComponent<GridLayoutGroup>();
+    }
+
+    void Start()
+    {
+        //_gameDifficulty = (GameDifficulty) PlayerPrefs.GetInt("GameDifficulty", 0);
+        _timer.StartTimer();
         SpawnCards();
+        UpdateCardGridCellSize();
     }
 
     void Update()
     {
         _uiManager.UpdateTimerText(_timer.GetHour, _timer.GetMinute, _timer.GetSecond);
+
+        if (_cardGridWidth != _cardsContainer.viewport.rect.width || _cardGridHeight != _cardsContainer.viewport.rect.height)
+        {
+            UpdateCardGridCellSize();
+        }
+        
+        //Debug.Log("Height: " + _cardsContainer.viewport.rect.height + "Width: " + _cardsContainer.viewport.rect.width);
+    }
+
+    private void UpdateCardGridCellSize()
+    {
+        int gridSize = _difficulties[(int)CurDifficulty].GridSize;
+        float gridWidth = _cardsContainer.viewport.rect.width;
+        float gridHeight = _cardsContainer.viewport.rect.height;
+        float xSpacing = _cardGridLayoutGroup.spacing.x;
+        float ySpacing = _cardGridLayoutGroup.spacing.y;
+
+        Debug.Log($"Updating Grid Cell Size with gridWidth = {gridWidth}, gridHeight = {gridHeight}, xSpacing = {xSpacing}, ySpacing = {ySpacing}");
+
+        float cellSizeX = (gridWidth - (xSpacing * (gridSize + 1))) / gridSize;
+        float cellSizeY = (gridHeight - (ySpacing * (gridSize + 1))) / gridSize;
+        Vector2 cellSize = new Vector2(cellSizeX, cellSizeY);
+
+        _cardGridWidth = gridWidth;
+        _cardGridHeight = gridHeight;
+        _cardGridLayoutGroup.cellSize = cellSize;
     }
 
     private void SpawnCards()
@@ -60,7 +109,7 @@ public class GameManager : MonoBehaviour
         List<Card> cards = new List<Card>();
         List<Texture2D> images = ImageManager.Instance.ImageList;
 
-        for (int i = 0; i < _pairsPerDifficulty[(int)CurDifficulty]; i++)
+        for (int i = 0; i < _difficulties[(int)CurDifficulty].PairsQty; i++)
         {
             Texture2D texture;
 
@@ -141,7 +190,7 @@ public class GameManager : MonoBehaviour
         _secondSelectCard.SetDiscovered();
         _discoveredPairs++;
 
-        if (_discoveredPairs == _pairsPerDifficulty[(int)CurDifficulty])
+        if (_discoveredPairs == _difficulties[(int)CurDifficulty].PairsQty)
         {
             FinishGame();
         }
