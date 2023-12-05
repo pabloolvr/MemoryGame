@@ -62,6 +62,11 @@ public class MainMenu : MonoBehaviour
         GameObject item = Instantiate(_imageItemPrefab, list.content);
         item.GetComponentInChildren<RawImage>().texture = texture;
 
+        AspectRatioFitter aspectRatioFitter = item.GetComponentInChildren<AspectRatioFitter>();
+        aspectRatioFitter.aspectRatio = ((float)texture.width) / ((float)texture.height);
+        //Debug.Log($"{texture.width} / {texture.height} = {aspectRatioFitter.aspectRatio}");
+        //aspectRatioFitter.enabled = true;
+
         Button button = item.GetComponent<Button>();
         if (toRemove)
         {

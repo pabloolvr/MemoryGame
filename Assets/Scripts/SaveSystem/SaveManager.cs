@@ -68,8 +68,9 @@ public class SaveManager : MonoBehaviour
                 }
             }
         }
-
+#if UNITY_EDITOR
         Debug.Log("Saved Save at " + savePath);
+#endif
         OnDataSaved();
         //formatter.Serialize(stream, _playerData);
     }
@@ -90,21 +91,26 @@ public class SaveManager : MonoBehaviour
                         for (int i = 0; i < photoPathsCount; i++)
                         {
                             string path = reader.ReadString();
+#if UNITY_EDITOR
                             Debug.Log($"Loaded path {path}");
+#endif
                             photoPaths.Add(path);
                         }
                     }
 
                     _playerData = new PlayerData(photoPaths);
                 }
-
+#if UNITY_EDITOR
                 Debug.Log("Loaded Save from " + savePath);
+#endif
                 OnDataLoaded();
                 return true;
             }
             catch
             {
+#if UNITY_EDITOR
                 Debug.LogError($"Error loading save file: Save is corrupt or incompatible with current version");
+#endif
                 return false;
             }
         }

@@ -18,6 +18,7 @@ public class Card : MonoBehaviour
     [SerializeField] private GameObject _cardBack;
     [SerializeField] private TextMeshProUGUI _idField;
     [SerializeField] private RawImage _image;
+    [SerializeField] private AspectRatioFitter _aspectRatioFitter;
     [SerializeField] private GameObject _discoveredOverlay;
 
     [Header("Settings")]
@@ -47,6 +48,7 @@ public class Card : MonoBehaviour
         {
             _image.gameObject.SetActive(true);
             _image.texture = texture;
+            _aspectRatioFitter.aspectRatio = ((float)texture.width) / ((float)texture.height);
         }
         else
         {
@@ -58,7 +60,7 @@ public class Card : MonoBehaviour
     public void Flip()
     {        
         StartCoroutine(FlipAnimation());
-        Debug.Log($"Card {Id} flipped");
+        //Debug.Log($"Card {Id} flipped");
     }
 
     private IEnumerator FlipAnimation()

@@ -774,16 +774,15 @@ MonoBehaviour:
   _cardsContainer: {fileID: 317812980}
   _timer: {fileID: 1280023894}
   cardPrefab: {fileID: 4759424933785432256, guid: 8aeba6b8aa525624e922e49ed58891fe, type: 3}
-  _pairsPerDifficulty: 0a000000140000001e0000002800000032000000
   _difficulties:
   - _difficulty: 0
     _pairsQty: 10
     _gridSize: 5
   - _difficulty: 1
-    _pairsQty: 20
+    _pairsQty: 21
     _gridSize: 7
   - _difficulty: 2
-    _pairsQty: 30
+    _pairsQty: 32
     _gridSize: 8
   - _difficulty: 3
     _pairsQty: 40
@@ -1774,8 +1773,8 @@ Transform:
   m_Children:
   - {fileID: 311207646}
   - {fileID: 398400554}
-  - {fileID: 2080861382}
   - {fileID: 627196204}
+  - {fileID: 2080861382}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &985311313

@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Card cardPrefab;
 
     [Header("Settings")]
-    [SerializeField] private int[] _pairsPerDifficulty;
     [SerializeField] private DifficultySettings[] _difficulties;
 
     //private List<Card> _cards;
@@ -81,8 +80,6 @@ public class GameManager : MonoBehaviour
         {
             UpdateCardGridCellSize();
         }
-        
-        //Debug.Log("Height: " + _cardsContainer.viewport.rect.height + "Width: " + _cardsContainer.viewport.rect.width);
     }
 
     private void UpdateCardGridCellSize()
@@ -92,9 +89,9 @@ public class GameManager : MonoBehaviour
         float gridHeight = _cardsContainer.viewport.rect.height;
         float xSpacing = _cardGridLayoutGroup.spacing.x;
         float ySpacing = _cardGridLayoutGroup.spacing.y;
-
+#if UNITY_EDITOR
         Debug.Log($"Updating Grid Cell Size with gridWidth = {gridWidth}, gridHeight = {gridHeight}, xSpacing = {xSpacing}, ySpacing = {ySpacing}");
-
+#endif
         float cellSizeX = (gridWidth - (xSpacing * (gridSize + 1))) / gridSize;
         float cellSizeY = (gridHeight - (ySpacing * (gridSize + 1))) / gridSize;
         Vector2 cellSize = new Vector2(cellSizeX, cellSizeY);
