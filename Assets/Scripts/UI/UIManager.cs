@@ -7,6 +7,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject _gameFinishPanel;
+    [SerializeField] private GameObject _pausePanel;
     [SerializeField] private TextMeshProUGUI _gameFinishText;
     [SerializeField] private TextMeshProUGUI _timerText;
 
@@ -46,5 +47,10 @@ public class UIManager : MonoBehaviour
     public void UpdateTimerText(int hour, int minute, int second)
     {
         _timerText.text = $"{hour:00}:{minute:00}:{second:00}";
+    }
+
+    public void SetPausePanelActive(bool active)
+    {
+        _pausePanel.SetActive(active);
     }
 }

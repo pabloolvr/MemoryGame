@@ -205,6 +205,12 @@ public class GameManager : MonoBehaviour
         _uiManager.ShowGameFinishPanel(_timer.GetHour, _timer.GetMinute, _timer.GetSecond);
     }
 
+    public void PauseGame(bool active)
+    {
+        _uiManager.SetPausePanelActive(active);
+        _timer.IsPaused = active;
+    }
+
     public void RestartLevel()
     {
         SceneManager.LoadScene("Game");
