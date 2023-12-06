@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
                 _gameFinishText.text += " Fácil!";
                 break;
             case GameDifficulty.Medium:
-                _gameFinishText.text += " Médio!";
+                _gameFinishText.text += " Média!";
                 break;
             case GameDifficulty.Hard:
                 _gameFinishText.text += " Difícil!";
