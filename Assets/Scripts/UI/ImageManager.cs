@@ -22,7 +22,6 @@ public class ImageManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            LoadImages();
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -31,14 +30,9 @@ public class ImageManager : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
-        
-    }
-
-    void Update()
-    {
-        
+        LoadImages();        
     }
 
     private void LoadImages()
