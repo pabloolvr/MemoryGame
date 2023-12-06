@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject _imageItemPrefab;
 
     [Header("References")]
+    [SerializeField] private GameObject _difficultyConfigPanel;
     [SerializeField] private ScrollRect _addedImagesRect;
     [SerializeField] private ScrollRect _imagesToRemoveRect;
     [SerializeField] private RemoveImageConfirm _removeImagePanel;
@@ -85,7 +86,12 @@ public class MainMenu : MonoBehaviour
 
     public void StartNewGame(int gameDifficulty)
     {
-        if (gameDifficulty < GameManager.DifficultiesCount)
+        if ((GameDifficulty) gameDifficulty == GameDifficulty.VeryHard)
+        {
+            GameManager.CurDifficulty = (GameDifficulty)gameDifficulty;
+            _difficultyConfigPanel.SetActive(true);
+        }
+        else if (gameDifficulty < GameManager.DifficultiesCount - 1)
         {
             GameManager.CurDifficulty = (GameDifficulty) gameDifficulty;
             SceneManager.LoadScene("Game");

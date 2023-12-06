@@ -20,12 +20,22 @@ public enum GameDifficulty
 public struct DifficultySettings
 {
     public GameDifficulty Difficulty => _difficulty;
-    public int PairsQty => _pairsQty;
+    public int PairsQty
+    {
+        get
+        {
+            return _pairsQty;
+        }
+        set
+        {
+            _pairsQty = value;
+        }
+    }
     public int GridSize => _gridSize;
 
-    public GameDifficulty _difficulty;
-    public int _pairsQty;
-    public int _gridSize;
+    private GameDifficulty _difficulty;
+    private int _pairsQty;
+    private int _gridSize;
 }
 
 public class GameManager : MonoBehaviour
@@ -34,6 +44,7 @@ public class GameManager : MonoBehaviour
 
     public static int DifficultiesCount => Enum.GetValues(typeof(GameDifficulty)).Length;
     public static GameDifficulty CurDifficulty { get; set; } = GameDifficulty.VeryEasy;
+    public static int MaxDifficPairsQty { get; set; } = 30;
 
     [Header("References")]
     [SerializeField] private UIManager _uiManager;
@@ -105,6 +116,11 @@ public class GameManager : MonoBehaviour
     {
         List<Card> cards = new List<Card>();
         List<Texture2D> images = ImageManager.Instance.ImageList;
+
+        if (CurDifficulty == GameDifficulty.VeryHard)
+        {
+            _difficulties[(int)CurDifficulty].PairsQty = MaxDifficPairsQty;
+        }
 
         for (int i = 0; i < _difficulties[(int)CurDifficulty].PairsQty; i++)
         {
