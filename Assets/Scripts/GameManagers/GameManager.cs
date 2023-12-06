@@ -123,6 +123,8 @@ public class GameManager : MonoBehaviour
             cards.Add(SpawnCard(i, texture));
         }
 
+        Shuffle(cards);
+
         int cardsCount = cards.Count;
 
         for (int i = 0; i < cardsCount; i++)
@@ -130,6 +132,20 @@ public class GameManager : MonoBehaviour
             int randomIndex = Random.Range(0, cardsCount - i);
             cards[randomIndex].transform.SetAsFirstSibling();
             cards.RemoveAt(randomIndex);
+        }
+    }
+
+    private void Shuffle(List<Card> cards)
+    {
+        int n = cards.Count;
+
+        while (n > 1)
+        {
+            n--;
+            int k = Random.Range(0, n);
+            Card val = cards[k];
+            cards[k] = cards[n];
+            cards[n] = val;
         }
     }
 
