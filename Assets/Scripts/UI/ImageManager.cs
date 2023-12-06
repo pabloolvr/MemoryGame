@@ -13,6 +13,7 @@ public class ImageManager : MonoBehaviour
 
     public event Action<string> OnImageAdded = (path) => { };
     public event Action<string> OnImageRemoved = (path) => { };
+    public event Action OnImagesLoaded = () => { };
 
     private Dictionary<string, Texture2D> _images = new Dictionary<string, Texture2D>();
     //private List<Texture2D> _images;
@@ -44,20 +45,23 @@ public class ImageManager : MonoBehaviour
         {
             if (TryGetImageTexture(path, out Texture2D texture))
             {
+                Debug.Log($"Loaded texture {texture} of size {texture.width}:{texture.height} from path {path}");
                 //_images.Add(texture);
                 _images.TryAdd(path, texture);
             }
             else
             {
+                Debug.Log($"Couldn't find texture on path {path}");
                 RemoveImage(path);
             }
         }
+
+        OnImagesLoaded();
     }
 
     public bool TryGetImageTexture(string path, out Texture2D texture)
     {
-        texture = NativeGallery.LoadImageAtPath(path);
-
+        texture = NativeGallery.LoadImageAtPath(path);        
         return path != null && texture != null;
     }
 
@@ -69,20 +73,6 @@ public class ImageManager : MonoBehaviour
             
             if (TryGetImageTexture(path, out Texture2D texture))
             {
-                //// Assign texture to a temporary quad and destroy it after 5 seconds
-                //GameObject quad = GameObject.CreatePrimitive(PrimitiveType.Quad);
-                //quad.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 2.5f;
-                //quad.transform.forward = Camera.main.transform.forward;
-                //quad.transform.localScale = new Vector3(1f, texture.height / (float)texture.width, 1f);
-
-                //Material material = quad.GetComponent<Renderer>().material;
-                //if (!material.shader.isSupported) // happens when Standard shader is not included in the build
-                //    material.shader = Shader.Find("Legacy Shaders/Diffuse");
-
-                //material.mainTexture = texture;
-
-                //Destroy(quad, 5f);
-
                 TryAddImage(path, texture);
             }
         });

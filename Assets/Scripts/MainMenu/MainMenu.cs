@@ -23,7 +23,7 @@ public class MainMenu : MonoBehaviour
     {
         ImageManager.Instance.OnImageAdded += OnImageAdded;
         ImageManager.Instance.OnImageRemoved += OnImageRemoved;
-
+        //ImageManager.Instance.OnImagesLoaded +=
         StartImagePanels();
     }
 
