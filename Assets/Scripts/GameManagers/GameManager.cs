@@ -33,9 +33,9 @@ public struct DifficultySettings
     }
     public int GridSize => _gridSize;
 
-    private GameDifficulty _difficulty;
-    private int _pairsQty;
-    private int _gridSize;
+    [SerializeField] private GameDifficulty _difficulty;
+    [SerializeField] private int _pairsQty;
+    [SerializeField] private int _gridSize;
 }
 
 public class GameManager : MonoBehaviour

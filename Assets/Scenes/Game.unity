@@ -779,16 +779,16 @@ MonoBehaviour:
     _pairsQty: 5
     _gridSize: 5
   - _difficulty: 1
-    _pairsQty: 10
-    _gridSize: 7
+    _pairsQty: 12
+    _gridSize: 6
   - _difficulty: 2
-    _pairsQty: 16
+    _pairsQty: 20
     _gridSize: 8
   - _difficulty: 3
     _pairsQty: 27
     _gridSize: 9
   - _difficulty: 4
-    _pairsQty: 50
+    _pairsQty: 28
     _gridSize: 10
 --- !u!1 &317812978
 GameObject:
