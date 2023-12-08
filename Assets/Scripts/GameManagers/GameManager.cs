@@ -122,22 +122,38 @@ public class GameManager : MonoBehaviour
             _difficulties[(int)CurDifficulty].PairsQty = MaxDifficPairsQty;
         }
 
-        for (int i = 0; i < _difficulties[(int)CurDifficulty].PairsQty; i++)
+        if (images.Count < _difficulties[(int)CurDifficulty].PairsQty)
         {
-            Texture2D texture;
-
-            if (i < images.Count)
+            for (int i = 0; i < _difficulties[(int)CurDifficulty].PairsQty; i++)
             {
-                texture = images[i];
-            }
-            else
-            {
-                texture = null;
-            }
+                Texture2D texture;
 
-            cards.Add(SpawnCard(i, texture));
-            cards.Add(SpawnCard(i, texture));
+                if (i < images.Count)
+                {
+                    texture = images[i];
+                }
+                else
+                {
+                    texture = null;
+                }
+
+                cards.Add(SpawnCard(i, texture));
+                cards.Add(SpawnCard(i, texture));
+            }
         }
+        else
+        {
+            for (int i = 0; i < _difficulties[(int)CurDifficulty].PairsQty; i++)
+            {
+                Texture2D texture = images[Random.Range(0, images.Count)];
+                images.Remove(texture);
+
+                cards.Add(SpawnCard(i, texture));
+                cards.Add(SpawnCard(i, texture));
+            }
+        }
+
+
 
         Shuffle(cards);
 
