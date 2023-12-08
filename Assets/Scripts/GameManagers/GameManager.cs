@@ -153,8 +153,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
-
-
         Shuffle(cards);
 
         int cardsCount = cards.Count;

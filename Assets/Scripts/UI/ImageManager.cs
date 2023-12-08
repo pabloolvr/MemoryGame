@@ -65,15 +65,45 @@ public class ImageManager : MonoBehaviour
         return path != null && texture != null;
     }
 
-    public void PickImage(int maxSize)
+    public void AddImage()
+    {
+        if (NativeGallery.CanSelectMultipleFilesFromGallery())
+        {
+            PickMultipleImages();
+        }
+        else
+        {
+            PickSingleImage();
+        }
+    }
+
+    private void PickSingleImage()
     {
         NativeGallery.Permission permission = NativeGallery.GetImageFromGallery((path) =>
         {
             Debug.Log("Image path: " + path);
-            
+
             if (TryGetImageTexture(path, out Texture2D texture))
             {
                 TryAddImage(path, texture);
+            }
+        });
+
+        Debug.Log("Permission result: " + permission);
+    }
+
+    private void PickMultipleImages()
+    {
+        NativeGallery.Permission permission = NativeGallery.GetImagesFromGallery((paths) =>
+        {
+            foreach (string path in paths)
+            {
+                Debug.Log("Image path: " + path);
+
+                if (TryGetImageTexture(path, out Texture2D texture))
+                {
+                    TryAddImage(path, texture);
+                }
             }
         });
 
