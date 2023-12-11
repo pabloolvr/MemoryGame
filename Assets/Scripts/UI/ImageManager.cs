@@ -31,12 +31,7 @@ public class ImageManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        LoadImages();        
-    }
-
-    private void LoadImages()
+    public void LoadImages()
     {
         //_images = new List<Texture2D>();
         _images = new Dictionary<string, Texture2D>();

@@ -43,7 +43,6 @@ public class SaveManager : MonoBehaviour
         // that does not match the locally stored save
         if (!LoadPlayerData())
         {
-            
             SavePlayerData();
         }
     }
