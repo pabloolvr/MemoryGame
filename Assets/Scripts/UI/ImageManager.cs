@@ -23,12 +23,14 @@ public class ImageManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            Debug.Log("Initialized ImageManager");
+            transform.SetParent(null);
             DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
-        }
+        }       
     }
 
     public void LoadImages()

@@ -26,7 +26,7 @@ public class SaveManager : MonoBehaviour
 
             savePath = Application.persistentDataPath + "/" + _fileName;
             Initialize();
-
+            transform.SetParent(null);
             DontDestroyOnLoad(gameObject);
         }
         else
